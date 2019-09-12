@@ -1,0 +1,19 @@
+{
+  "name": "minesweeper-practice",
+  "version": "1.0.0",
+  "description": "practicing building a nodejs console game, such as minesweeper, for the triplebyte interview ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ordinaryname/minesweeper-practice.git"
+  },
+  "author": "Raymond Mutyaba <raymondmutyaba@gmail.com> (https://raymondmutyaba.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ordinaryname/minesweeper-practice/issues"
+  },
+  "homepage": "https://github.com/ordinaryname/minesweeper-practice#readme"
+}
