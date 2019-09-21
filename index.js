@@ -22,6 +22,7 @@ initGrid = () => {
     }
   }
   generateMines();
+  generateHints();
   console.log(`Grid Initialized. You have ${mineCount} flags.`);
   printGrid();
 }
@@ -33,6 +34,51 @@ generateMines = () => {
     if(grid[col.toString() + ',' + row.toString()] !== '*') {
       grid[col.toString() + ',' + row.toString()] = '*';
       mineCount++;
+    }
+  }
+}
+
+generateHints = () => {
+  let hint = 0;
+  for(col = 0; col <= 9; col++) {
+    for(row = 0; row <= 9; row++) {
+      if(grid[col.toString() + ',' + row.toString()] === '0') {
+        //generate hints
+        if(row > 0 && grid[col.toString() + ',' + (row - 1).toString()] === '*') {
+          //Check top square
+          hint++;
+        }
+        if(row > 0 && col <= 9 && grid[(col + 1).toString() + ',' + (row - 1).toString()] === '*') {
+          //Check top-right square
+          hint++;
+        }
+        if(col <= 9 && grid[(col + 1).toString() + ',' + row.toString()] === '*') {
+          //Check right square
+          hint++;
+        }
+        if(row <= 8 && col <= 9 && grid[(col + 1).toString() + ',' + (row + 1).toString()] === '*') {
+          //Check bottom-right square
+          hint++;
+        }
+        if(row <= 8 && grid[col.toString() + ',' + (row + 1).toString()] === '*') {
+          //Check bottom square
+          hint++;
+        }
+        if(row <= 8 && col > 0 && grid[(col - 1).toString() + ',' + (row + 1).toString()] === '*') {
+          //Check bottom-left square
+          hint++;
+        }
+        if(col > 0 && grid[(col - 1).toString() + ',' + row.toString()] === '*') {
+          //Check left square
+          hint++;
+        }
+        if(row > 0 && col > 0 && grid[(col - 1).toString() + ',' + (row - 1).toString()] === '*') {
+          //Check top-left square
+          hint++;
+        }
+        grid[col.toString() + ',' + row.toString()] = hint;
+        hint = 0;
+      }
     }
   }
 }
@@ -54,6 +100,8 @@ printGrid = () => {
     }
   }
 }
+
+
 
 initGrid();
 console.log('Select a square and plant a flag (0,0 -f) or clear the square (0,0 -c): ');
