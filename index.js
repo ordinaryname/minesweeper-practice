@@ -8,17 +8,19 @@ const rl = readline.createInterface({
 let turn = 0;
 let grid = {};
 let mineCount = 0;
+let mines = {};
 let flagsPlanted = 0;
 let flags = {};
 let gameOver = false;
 
+
 console.log('Welcome to Minesweeper!');
 
 initGrid = () => {
-  // Set up a 18 by 18 grid
+  // Set up a 9 by 9 grid
   for(col = 0; col <= 9; col++) {
     for(row = 0; row <= 9; row++) {
-      grid[col.toString() + ',' + row.toString()] = '0';
+      grid[col + ',' + row] = '0';
     }
   }
   generateMines();
@@ -33,6 +35,7 @@ generateMines = () => {
     let row = Math.floor(Math.random() * 10);
     if(grid[col.toString() + ',' + row.toString()] !== '*') {
       grid[col.toString() + ',' + row.toString()] = '*';
+      mines[col.toString() + ',' + row.toString()] = '*';
       mineCount++;
     }
   }
@@ -130,9 +133,16 @@ rl.on('line', (answer) => {
 
   }
   printGrid();
+  if(flags === mines) {
+    gameOver = true;
+    console.log('You have flagged all mines. Game Over.');
+  }
   if(gameOver == true) {
     rl.close();
   } else {
     console.log('Select a square and plant a flag (0,0 -f) or clear the square (0,0 -c): ');
   }
 });
+
+exports.gameOver = gameOver;
+exports.rl = rl;
